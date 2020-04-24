@@ -31,11 +31,11 @@ include_once "sessionCheck.php";
         } else {
 
             $stmt = $connection->prepare(
-                "INSERT INTO ppl(First_Name,Second_Name,Age,UserName,Password,Nationality) VALUES(?,?,?,?,?,?)"
+                "INSERT INTO ppl(First_Name,Second_Name,Age,UserName,Password,Nationality,usertype) VALUES(?,?,?,?,?,?,?)"
             );
 
             $hashedPassword = password_hash($_GET["Password"], PASSWORD_BCRYPT);
-
+            $userType = 2;
             $stmt->bind_param(
                 "ssissi",
                 $_POST["FirstName"],
@@ -43,7 +43,8 @@ include_once "sessionCheck.php";
                 $_POST["Age"],
                 $_POST["Username"],
                 $hashedPassword,
-                $_POST["Country"]
+                $_POST["Country"],
+                $userType
             );
             $stmt->execute();
             print "Yaaay you have registered. Check the database <BR>";
