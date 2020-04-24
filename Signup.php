@@ -49,7 +49,7 @@ include_once "sessionCheck.php";
             print "Yaaay you have registered. Check the database <BR>";
             $_session["UserLogged"] = true;
 
-            $newSelectStatement = $connection->prepare("SELECTPERSON_ID FROM pplWHERE Username=?");
+            $newSelectStatement = $connection->prepare("SELECT PERSON_ID FROM pplWHERE Username=?");
             $newSelectStatement->bind_param("s", $_POST["Username"]);
             $newSelectStatement->execute();
             $resultingUser = $newSelectStatement->get_result();
