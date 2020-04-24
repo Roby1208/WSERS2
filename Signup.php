@@ -38,18 +38,18 @@ include_once "sessionCheck.php";
 
             $stmt->bind_param(
                 "ssissi",
-                $_GET["FirstName"],
-                $_GET["LastName"],
-                $_GET["Age"],
-                $_GET["Username"],
+                $_POST["FirstName"],
+                $_POST["LastName"],
+                $_POST["Age"],
+                $_POST["Username"],
                 $hashedPassword,
-                $_GET["Country"]
+                $_POST["Country"]
             );
             $stmt->execute();
             print "Yaaay you have registered. Check the database <BR>";
             $_session["UserLogged"] = true;
 
-            $newSelectStatement = $connection->prepare("SELECT PERSON_ID FROM pplWHERE Username=?");
+            $newSelectStatement = $connection->prepare("SELECT PERSON_ID FROM ppl WHERE UserName=?");
             $newSelectStatement->bind_param("s", $_POST["Username"]);
             $newSelectStatement->execute();
             $resultingUser = $newSelectStatement->get_result();

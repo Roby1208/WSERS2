@@ -2,12 +2,9 @@
 include_once "sessionCheck.php";
 include_once "credentials.php";
 include_once "userDisplay.php";
-?>
 
-<form action="login_page.php" method="post">
-  <input type="submit" name="Logout" value="Logout">
-</form>
-<?php
+if ($_SESSION["UserLogged"]){
+}
 if (isset($_POST["Logout"])) {
   session_unset();
   session_destroy();
