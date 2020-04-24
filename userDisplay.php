@@ -18,7 +18,7 @@ function displayUserDetails($connection)
       $countrySelect->execute();
       $resultContry= $countrySelect->get_result();
       $rowCountry = $resultContry->fetch_assoc();
-      print "country: " . $rowCountry["COUNTRY_NAME"] . "<br>"
+      print "country: " . $rowCountry["COUNTRY_NAME"] . "<br>";
   }    
 }
 ?>
