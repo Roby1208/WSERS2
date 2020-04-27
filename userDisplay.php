@@ -13,7 +13,7 @@ function displayUserDetails($connection)
       print "Second name:" . $row ["Second_Name"] . "<br>";
       print "Age:" . $row ["Age"] . "<br>";
       print "Username:" . $row ["UserName"] . "<br>";
-      $countrySelect = $connection ->prepare("SELECT COUNTRY_NAME FROM countries WHERE COUNTRY_ID=?");
+      $countrySelect = $connection ->prepare("SELECT COUNTRY_NAME FROM COUNTRIES WHERE COUNTRY_ID=?");
       $countrySelect->bind_param("i", $row["Nationality"]);
       $countrySelect->execute();
       $resultContry= $countrySelect->get_result();

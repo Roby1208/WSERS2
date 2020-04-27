@@ -3,7 +3,7 @@ USE roby;
 
 CREATE TABLE User_roles(
     ID INT NOT NULL AUTO_INCREMENT,
-    userType VARCHAR(20) NOT NULL,
+    UserType VARCHAR(20) NOT NULL,
     PRIMARY KEY (ID)
 );
 
@@ -27,8 +27,8 @@ CREATE TABLE PPL (
     UserName VARCHAR(25) NOT NULL UNIQUE,
     Password VARCHAR(200) NOT NULL,
     Nationality INT NOT NULL,
-    userType INT NOT NULL,
+    UsrType INT NOT NULL,
     PRIMARY KEY (PERSON_ID),
     FOREIGN KEY (Nationality) REFERENCES COUNTRIES(COUNTRY_ID),
-    FOREIGN KEY (userType) REFERENCES User_roles(ID)
+    FOREIGN KEY (UsrType) REFERENCES User_roles(ID)
 );

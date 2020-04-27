@@ -10,15 +10,16 @@ include_once "sessionCheck.php";
     if (isset($_POST["Logout"])) {
         session_unset();
         session_destroy();
+        print"You hve been logged out";
     }
-    if ($_SESSION["UserLogged"]) {
-        print "you can not login twice";
+    elseif ($_SESSION["UserLogged"]) {
+        print "you are already logged in";
     }
-    if (
-        isset($_GET["FirstName"]) &&
-        isset($_GET["LastName"]) &&
-        isset($_GET["Username"]) &&
-        isset($_GET["Password"])
+    elseif (
+        isset($_POST["FirstName"]) &&
+        isset($_POST["LastName"]) &&
+        isset($_POST["Username"]) &&
+        isset($_POST["Password"])
     ) {
         print "You are about to register .... but not yet<BR>";
         $isUserThere = $connection->prepare("SELECT * FROM ppl WHERE UserName=?");
@@ -30,14 +31,12 @@ include_once "sessionCheck.php";
             print "Your username is already taken ! <BR>";
         } else {
 
-            $stmt = $connection->prepare(
-                "INSERT INTO ppl(First_Name,Second_Name,Age,UserName,Password,Nationality,usertype) VALUES(?,?,?,?,?,?,?)"
-            );
+            $stmt = $connection->prepare( "INSERT INTO ppl(First_Name,Second_Name,Age,UserName,Password,Nationality,UsrType) VALUES(?,?,?,?,?,?,?)");
 
-            $hashedPassword = password_hash($_GET["Password"], PASSWORD_BCRYPT);
+            $hashedPassword = password_hash($_POST["Password"], PASSWORD_BCRYPT);
             $userType = 2;
             $stmt->bind_param(
-                "ssissi",
+                "ssissii",
                 $_POST["FirstName"],
                 $_POST["LastName"],
                 $_POST["Age"],
@@ -48,7 +47,7 @@ include_once "sessionCheck.php";
             );
             $stmt->execute();
             print "Yaaay you have registered. Check the database <BR>";
-            $_session["UserLogged"] = true;
+            $_SESSION["UserLogged"] = true;
 
             $newSelectStatement = $connection->prepare("SELECT PERSON_ID FROM ppl WHERE UserName=?");
             $newSelectStatement->bind_param("s", $_POST["Username"]);
@@ -60,7 +59,7 @@ include_once "sessionCheck.php";
                                                     }
                                                 } else {
                                                         ?>
-        <form action="Signup.php" method="get">
+        <form action="Signup.php" method="post">
             First name: <input type="text" name="FirstName" required><br>
             Last name: <input type="text" name="LastName" required><br>
             Age: <input type="text" name="Age"><br>
@@ -69,7 +68,7 @@ include_once "sessionCheck.php";
 
             <select name="Country">
                 <?php
-                                                    $stmt = $connection->prepare("SELECT * FROM countries");
+                                                    $stmt = $connection->prepare("SELECT * FROM COUNTRIES");
                                                     $stmt->execute();
                                                     $result = $stmt->get_result();
 
@@ -85,7 +84,7 @@ include_once "sessionCheck.php";
                                                     } else {
                                                         echo "0 results";
                                                     }
-                                                    $connection->close();
+                                                    //$connection->close();
                 ?>
             </select>
             <br>
