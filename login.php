@@ -30,23 +30,26 @@ if (isset($_POST["Logout"])) {
       $_SESSION["UserLogged"] = true;
       $_SESSION["CurrentUser"] = $row["PERSON_ID"];
       displayUserDetails($connection);
-    } else {
-      print "Wrong password ! Please type your password correctly";
-    }
-  } else {
-    print "The username you typed has not been found in our database !! Please register first !";
-  ?>
+  ?><a href="Products.php">Go to our Products Page</a><?php
+                                                        } else {
+                                                          print "Wrong password ! Please type your password correctly";
+                                                        }
+                                                      } else {
+                                                        print "The username you typed has not been found in our database !! Please register first !";
+                                                          ?>
     <a href="Signup.php">Click here to register</a> <br>
     <a href="login.php">Try again loggin-in</a>
   <?php
-  }
-} else {
+                                                      }
+                                                    } else {
   ?>
   <form action="login.php" method="post">
     Username: <input type="text" name="Username" placeholder="Your name.." required><br>
     Password: <input type="password" name="Password" placeholder="Password" required><br>
     <input type="submit" name="Login" value="Login">
   </form>
+  <a href="Products.php">Go to our Products Page</a>
+
 <?php
-}
+                                                    }
 ?>

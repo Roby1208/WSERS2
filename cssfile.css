@@ -1,0 +1,75 @@
+#navigationBar {
+  display: flex;
+  background-color: rgb(0, 0, 0);
+  justify-content: space-between;
+}
+
+#navigationTittle {
+  background-color: rgb(0, 0, 0);
+  font-family: cursive;
+  font-size: large;
+  padding: 20px;
+}
+
+#navigationLinks a {
+  text-decoration: none;
+  padding: 10px;
+  font-size: large;
+}
+
+#navigationLinks {
+  display: flex;
+  align-items: center;
+  background-color: goldenrod;
+}
+
+#navigationLanguage {
+  display: flex;
+  align-items: center;
+  background-color: goldenrod;
+  font-size: 50px;
+}
+
+#Signup {
+  display: flex;
+  align-items: center;
+  background-color: goldenrod;
+  font-size: 50px;
+}
+
+#login {
+  background-color: goldenrod;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+#login form {
+  background-color: goldenrod;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+#login form div {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+#AllProducts {
+  display: flex;
+  justify-content: space-around;
+  flex: wrap;
+  align-items: center;
+}
+
+.whiteText {
+  color: white;
+}
+
+.Product {
+  text-align: center;
+}

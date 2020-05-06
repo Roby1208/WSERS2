@@ -10,12 +10,13 @@ include_once "sessionCheck.php";
     if (isset($_POST["Logout"])) {
         session_unset();
         session_destroy();
-        print"You hve been logged out";
-    }
-    elseif ($_SESSION["UserLogged"]) {
+        print "You have been logged out";
+    } elseif ($_SESSION["UserLogged"]) {
         print "you are already logged in";
-    }
-    elseif (
+    ?>
+        <a href="Products.php">Go to our Products Page</a>
+        <?php
+    } elseif (
         isset($_POST["FirstName"]) &&
         isset($_POST["LastName"]) &&
         isset($_POST["Username"]) &&
@@ -31,7 +32,7 @@ include_once "sessionCheck.php";
             print "Your username is already taken ! <BR>";
         } else {
 
-            $stmt = $connection->prepare( "INSERT INTO ppl(First_Name,Second_Name,Age,UserName,Password,Nationality,UsrType) VALUES(?,?,?,?,?,?,?)");
+            $stmt = $connection->prepare("INSERT INTO ppl(First_Name,Second_Name,Age,UserName,Password,Nationality,UsrType) VALUES(?,?,?,?,?,?,?)");
 
             $hashedPassword = password_hash($_POST["Password"], PASSWORD_BCRYPT);
             $userType = 2;
@@ -55,10 +56,11 @@ include_once "sessionCheck.php";
             $resultingUser = $newSelectStatement->get_result();
             $rowCurrentId = $resultingUser->fetch_assoc();
             $_SESSION["CurrentUser"] = $rowCurrentId["PERSON_ID"];
-    ?><a href="login.php">Go To the login page</a><?php
-                                                    }
-                                                } else {
-                                                        ?>
+        ?><a href="login.php">Go To the login page</a><br>
+            <a href="Products.php">Go to our Protuct Page</a><?php
+                                                            }
+                                                        } else {
+                                                                ?>
         <form action="Signup.php" method="post">
             First name: <input type="text" name="FirstName" required><br>
             Last name: <input type="text" name="LastName" required><br>
@@ -68,30 +70,30 @@ include_once "sessionCheck.php";
 
             <select name="Country">
                 <?php
-                                                    $stmt = $connection->prepare("SELECT * FROM COUNTRIES");
-                                                    $stmt->execute();
-                                                    $result = $stmt->get_result();
+                                                            $stmt = $connection->prepare("SELECT * FROM COUNTRIES");
+                                                            $stmt->execute();
+                                                            $result = $stmt->get_result();
 
-                                                    if ($result->num_rows > 0) {
-                                                        // output data of each row
-                                                        while ($row = $result->fetch_assoc()) {
-                                                            echo '<option value="' .
-                                                                $row["COUNTRY_ID"] .
-                                                                '">' .
-                                                                $row["COUNTRY_NAME"] .
-                                                                '</option>';
-                                                        }
-                                                    } else {
-                                                        echo "0 results";
-                                                    }
-                                                    //$connection->close();
+                                                            if ($result->num_rows > 0) {
+                                                                // output data of each row
+                                                                while ($row = $result->fetch_assoc()) {
+                                                                    echo '<option value="' .
+                                                                        $row["COUNTRY_ID"] .
+                                                                        '">' .
+                                                                        $row["COUNTRY_NAME"] .
+                                                                        '</option>';
+                                                                }
+                                                            } else {
+                                                                echo "0 results";
+                                                            }
+                                                            //$connection->close();
                 ?>
             </select>
             <br>
             <input type="submit" name="Register" value="Register">
         </form>
     <?php
-                                                }
+                                                        }
     ?>
 
 </body>
