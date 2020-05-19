@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -8,41 +9,54 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+
 <body>
-<?php
-include_once "credentials.php";
-?>
+    <?php
+    include_once "credentials.php";
+    ?>
     <form name="form" method="post" action="">
         <label><strong>Select database</strong></label><br />
-        <table border="0" width="60%">
-        <tr>
-        <?php
-        $count = 0;
-        $query = mysqli_query($connection,"SELECT * FROM ppl");
-        foreach($query as $row){
-         $count++;
-        ?>
-        <td width="3%">
-        <select name="users">
-            <option value=""></option>
+        <select name="selection">
+            <?php
+            $count = 0;
+            $query = $connection->prepare("SELECT * FROM ppl");
+            $query->execute();
+            $result = $query->get_result();
+            while ($row = $result->fetch_assoc()) {
+                $count++;
+            ?>
+                <option value="<?php echo $row["PERSON_ID"]; ?>" <?php
+                                                                    if (isset($_POST["selection"])) {
+                                                                        if ($row["PERSON_ID"] == $_POST["selection"]) {
+                                                                            echo "selected";
+                                                                        }
+                                                                    }
+                                                                    ?>><?php echo $row["UserName"]; ?></option>
+            <?php
+
+            } ?>
         </select>
-        value="<?php echo $row["First_name"]; ?>">
-        </td>
-        <td width="30%">
-        <?php echo $row["Second_name"]; ?>
-        </td>
-        <?php
-        if($count == 3) { // three items in a row
-                echo '</tr><tr>';
-                $count = 0;
-            }
-        } ?>
-        </tr>
-        </table>
         <input type="submit" name="submit" value="Submit">
-        </form>
-         
-        <br />
-        <?php echo $status; ?>  
+    </form>
+    <?php
+
+    if (isset($_POST["selection"])) {
+        echo "we will display the user .." . "<br>" . $_POST["selection"] . "<br>";
+        $query = $connection->prepare("SELECT * FROM ppl WHERE PERSON_ID=?");
+        $query->bind_param("i", $_POST["selection"]);
+        $query->execute();
+        $result = $query->get_result();
+        if ($row = $result->fetch_assoc()) {
+            echo $row["First_Name"] . "<br>";
+            echo $row["Second_Name"] . "<br>";
+            echo $row["Age"] . "<br>";
+            echo $row["Nationality"] . "<br>";
+            echo $row["UsrType"];
+        }
+    }
+
+    ?>
+    <br />
 </body>
+
 </html>
