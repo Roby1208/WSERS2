@@ -19,7 +19,7 @@
         <select name="selection">
             <?php
             $count = 0;
-            $query = $connection->prepare("SELECT * FROM ppl");
+            $query = $connection->prepare("SELECT * FROM pplwithcountries");
             $query->execute();
             $result = $query->get_result();
             while ($row = $result->fetch_assoc()) {
@@ -42,7 +42,7 @@
 
     if (isset($_POST["selection"])) {
         echo "we will display the user .." . "<br>" . $_POST["selection"] . "<br>";
-        $query = $connection->prepare("SELECT * FROM ppl WHERE PERSON_ID=?");
+        $query = $connection->prepare("SELECT * FROM pplcountriesadmin WHERE PERSON_ID=?");
         $query->bind_param("i", $_POST["selection"]);
         $query->execute();
         $result = $query->get_result();
@@ -50,8 +50,8 @@
             echo $row["First_Name"] . "<br>";
             echo $row["Second_Name"] . "<br>";
             echo $row["Age"] . "<br>";
-            echo $row["Nationality"] . "<br>";
-            echo $row["UsrType"];
+            echo $row["COUNTRY_NAME"] . "<br>";
+            echo $row["UserType"];
         }
     }
 
