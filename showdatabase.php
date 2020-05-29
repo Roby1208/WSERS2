@@ -19,7 +19,7 @@
         <select name="selection">
             <?php
             $count = 0;
-            $query = $connection->prepare("SELECT * FROM pplwithcountries");
+            $query = $connection->prepare("SELECT * FROM pplcountriesadmin");
             $query->execute();
             $result = $query->get_result();
             while ($row = $result->fetch_assoc()) {
@@ -41,16 +41,16 @@
     <?php
 
     if (isset($_POST["selection"])) {
-        echo "we will display the user .." . "<br>" . $_POST["selection"] . "<br>";
+        echo "User Display : " . "<br>" . "The " . $_POST["selection"] . " user" . "<br>";
         $query = $connection->prepare("SELECT * FROM pplcountriesadmin WHERE PERSON_ID=?");
         $query->bind_param("i", $_POST["selection"]);
         $query->execute();
         $result = $query->get_result();
         if ($row = $result->fetch_assoc()) {
-            echo $row["First_Name"] . "<br>";
-            echo $row["Second_Name"] . "<br>";
-            echo $row["Age"] . "<br>";
-            echo $row["COUNTRY_NAME"] . "<br>";
+            echo "Firstname : " . $row["First_Name"] . "<br>";
+            echo "Lastname : " . $row["Second_Name"] . "<br>";
+            echo "Age : " . $row["Age"] . "<br>";
+            echo "Nationality : " . $row["COUNTRY_NAME"] . "<br>";
             echo $row["UserType"];
         }
     }
