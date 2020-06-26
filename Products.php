@@ -20,11 +20,11 @@ include_once "userDisplay.php";
       <h1>Products</h1>
     </div>
     <div id=navigationLinks>
-      <a href="Products.html">
+      <a href="Products.php">
         <h1>Products</h1>
       </a>
-      <a href="About.html">
-        <h1>About</h1>
+      <a href="administration.php">
+        <h1>admin only</h1>
       </a>
     </div>
 
@@ -80,7 +80,7 @@ include_once "userDisplay.php";
     <?php }
     } ?>
     <div id="navigationLanguage">
-      <a href="">Language</a>
+      <a href="showdatabase.php">database</a>
     </div>
   </nav>
   <h1>These are our products</h1>

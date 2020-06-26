@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <form action="test.php" method="post">
+    <form action="countryuser.php" method="post">
         <select name="countrySelect" id="">
             <option value="0">No filter</option>
             <?php
